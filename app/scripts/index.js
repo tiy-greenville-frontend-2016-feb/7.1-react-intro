@@ -5,32 +5,8 @@ var Backbone = require('backbone');
 require('backbone-react-component');
 
 var models = require('./models');
+var IcecreamList = require('./components/list.jsx');
 
-var IcecreamItem = React.createClass({
-  mixins: [Backbone.React.Component.mixin],
-  render: function(){
-    return (
-      <li>{this.props.model.get("name")}: {this.props.model.popularity()}</li>
-    )
-  }
-});
-
-var IcecreamList = React.createClass({
-  mixins: [Backbone.React.Component.mixin],
-  render: function(){
-    var flavorList = this.props.collection.map(function(model){
-      return (
-        <IcecreamItem model={model} key={model.get('name')}/>
-      );
-    });
-
-    return (
-      <ul className="flavors">
-        {flavorList}
-      </ul>
-    )
-  }
-});
 
 var flavors = new models.IcecreamCollection();
 flavors.add([
@@ -45,7 +21,9 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-
+// ============================================================
+// ============= DEMO HELPERS =================================
+// ============================================================
 function randomizeVotes(){
     flavors.each(function(model){
       var numUpVotes = _.random(0, 10);
